@@ -1,0 +1,197 @@
+<!--&lt;!&ndash;<!DOCTYPE html>&ndash;&gt;-->
+<!--&lt;!&ndash;<html lang="en">&ndash;&gt;-->
+<!--&lt;!&ndash;<head>&ndash;&gt;-->
+<!--&lt;!&ndash;    <meta charset="UTF-8">&ndash;&gt;-->
+<!--&lt;!&ndash;    <meta name="viewport" content="width=device-width, initial-scale=1.0">&ndash;&gt;-->
+<!--&lt;!&ndash;    <title>Audio Sentiment Analysis</title>&ndash;&gt;-->
+<!--&lt;!&ndash;    <style>&ndash;&gt;-->
+<!--&lt;!&ndash;        .output-box {&ndash;&gt;-->
+<!--&lt;!&ndash;            border: 1px solid #ccc;&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 10px;&ndash;&gt;-->
+<!--&lt;!&ndash;            margin-top: 20px;&ndash;&gt;-->
+<!--&lt;!&ndash;            width: 80%;&ndash;&gt;-->
+<!--&lt;!&ndash;            overflow-wrap: break-word;&ndash;&gt;-->
+<!--&lt;!&ndash;            margin-bottom: 10px;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--&lt;!&ndash;    </style>&ndash;&gt;-->
+<!--&lt;!&ndash;</head>&ndash;&gt;-->
+<!--&lt;!&ndash;<body>&ndash;&gt;-->
+<!--&lt;!&ndash;    <h1>Upload Audio File</h1>&ndash;&gt;-->
+<!--&lt;!&ndash;    <form id="uploadForm" action="/upload_file" method="post" enctype="multipart/form-data">&ndash;&gt;-->
+<!--&lt;!&ndash;        <input type="file" name="input_audio">&ndash;&gt;-->
+<!--&lt;!&ndash;        <input type="button" onclick="submitForm()" value="Upload">&ndash;&gt;-->
+<!--&lt;!&ndash;    </form>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    <div id="output" class="output-box" style="display: none;"></div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    <script>&ndash;&gt;-->
+<!--&lt;!&ndash;        function submitForm() {&ndash;&gt;-->
+<!--&lt;!&ndash;            var form = document.getElementById('uploadForm');&ndash;&gt;-->
+<!--&lt;!&ndash;            var formData = new FormData(form);&ndash;&gt;-->
+
+<!--&lt;!&ndash;            fetch('/upload_file', {&ndash;&gt;-->
+<!--&lt;!&ndash;                method: 'POST',&ndash;&gt;-->
+<!--&lt;!&ndash;                body: formData&ndash;&gt;-->
+<!--&lt;!&ndash;            })&ndash;&gt;-->
+<!--&lt;!&ndash;            .then(response => response.text())&ndash;&gt;-->
+<!--&lt;!&ndash;            .then(data => {&ndash;&gt;-->
+<!--&lt;!&ndash;                console.log(data); // You can handle the response data here&ndash;&gt;-->
+<!--&lt;!&ndash;                // Display the text content in the output box&ndash;&gt;-->
+<!--&lt;!&ndash;                var outputDiv = document.getElementById('output');&ndash;&gt;-->
+<!--&lt;!&ndash;                outputDiv.innerHTML = '';&ndash;&gt;-->
+
+<!--&lt;!&ndash;                // Append the data to the output box&ndash;&gt;-->
+<!--&lt;!&ndash;                outputDiv.textContent = data.trim();&ndash;&gt;-->
+
+<!--&lt;!&ndash;                // Display the output box&ndash;&gt;-->
+<!--&lt;!&ndash;                outputDiv.style.display = 'block';&ndash;&gt;-->
+<!--&lt;!&ndash;            })&ndash;&gt;-->
+<!--&lt;!&ndash;            .catch(error => {&ndash;&gt;-->
+<!--&lt;!&ndash;                console.error('Error:', error);&ndash;&gt;-->
+<!--&lt;!&ndash;            });&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--&lt;!&ndash;    </script>&ndash;&gt;-->
+<!--&lt;!&ndash;</body>&ndash;&gt;-->
+<!--&lt;!&ndash;</html>&ndash;&gt;-->
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Audio Sentiment Analysis</title>-->
+<!--    <style>-->
+<!--        .output-box {-->
+<!--            border: 1px solid #ccc;-->
+<!--            padding: 10px;-->
+<!--            margin-top: 20px;-->
+<!--            width: 80%;-->
+<!--            overflow-wrap: break-word;-->
+<!--            margin-bottom: 10px;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--    <h1>Upload Audio File</h1>-->
+<!--    <form id="uploadForm" action="/upload_file" method="post" enctype="multipart/form-data">-->
+<!--        <input type="file" name="input_audio">-->
+<!--        <input type="button" onclick="submitForm()" value="Upload">-->
+<!--    </form>-->
+
+<!--    <div id="output" class="output-box" style="display: none;"></div>-->
+
+<!--    <script>-->
+<!--        function submitForm() {-->
+<!--            var form = document.getElementById('uploadForm');-->
+<!--            var formData = new FormData(form);-->
+
+<!--            fetch('/upload_file', {-->
+<!--                method: 'POST',-->
+<!--                body: formData-->
+<!--            })-->
+<!--            .then(response => response.text())-->
+<!--            .then(data => {-->
+<!--                console.log(data); // You can handle the response data here-->
+<!--                // Display the text content in the output box-->
+<!--                var outputDiv = document.getElementById('output');-->
+<!--                outputDiv.innerHTML = '';-->
+
+<!--                // Split the data into sentences-->
+<!--                var sentences = data.trim().split(/[.!?]/);-->
+
+<!--                // Create bullet points for each sentence-->
+<!--                var ul = document.createElement('ul');-->
+<!--                sentences.forEach(sentence => {-->
+<!--                    var li = document.createElement('li');-->
+<!--                    li.textContent = sentence.trim();-->
+<!--                    ul.appendChild(li);-->
+<!--                });-->
+
+<!--                // Append the bullet points to the output box-->
+<!--                outputDiv.appendChild(ul);-->
+
+<!--                // Display the output box-->
+<!--                outputDiv.style.display = 'block';-->
+<!--            })-->
+<!--            .catch(error => {-->
+<!--                console.error('Error:', error);-->
+<!--            });-->
+<!--        }-->
+<!--    </script>-->
+<!--</body>-->
+<!--</html>-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Sentiment Analysis</title>
+    <style>
+
+        .output-box {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-top: 20px;
+            width: 80%;
+            overflow-wrap: break-word;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Upload Audio File</h1>
+    <form id="uploadForm" action="/upload_file" method="post" enctype="multipart/form-data">
+        <input type="file" name="input_audio">
+        <input type="button" onclick="submitForm()" value="Upload">
+    </form>
+
+    <div id="output" class="output-box" style="display: none;"></div>
+
+    <script>
+        function submitForm() {
+            // Clear previous output
+            var outputDiv = document.getElementById('output');
+            outputDiv.innerHTML = 'Processing Transcript.......';
+            outputDiv.style.display = 'block';
+
+            var form = document.getElementById('uploadForm');
+            var formData = new FormData(form);
+
+            fetch('/upload_file', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                console.log(data); // You can handle the response data here
+                // Display the text content in the output box
+                outputDiv.innerHTML = '';
+
+                // Split the data into sentences
+                data = data.replace(/['"]+/g, '');
+                var sentences = data.trim().split(/[.!?]/);
+
+                sentences.pop();
+
+                // Create bullet points for each sentence
+                var ul = document.createElement('ul');
+                sentences.forEach(sentence => {
+                    var li = document.createElement('li');
+                    li.textContent = sentence.trim();
+                    ul.appendChild(li);
+                });
+
+                // Append the bullet points to the output box
+                outputDiv.appendChild(ul);
+
+                // Display the output box
+                outputDiv.style.display = 'block';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>
